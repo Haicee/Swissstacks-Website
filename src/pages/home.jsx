@@ -11,21 +11,21 @@ const HERO_STATS = [
 
 const CORE_SERVICES = [
   {
-    icon: '📡',
+    icon: <img src="src/assets/proxy.png" alt="proxy" />,
     title: 'Premium Proxies',
     description: 'Secure, anonymous, and lightning-fast residentials and datacenter IPs for web scraping and privacy.',
     ctaLabel: 'View Plans',
     ctaHref: '#proxies'
   },
   {
-    icon: '🔐',
+    icon: <img src="src/assets/It.png" alt="it" />,
     title: 'Managed IT',
     description: 'End-to-end network management, cybersecurity auditing, and seamless cloud integration services.',
     ctaLabel: 'Explore IT',
     ctaHref: '#managed-it'
   },
   {
-    icon: '💻',
+    icon: <img src="src/assets/web.png" alt="web" />,
     title: 'Web Design',
     description: 'Modern, responsive front-end development tailored to your brand identity with cutting-edge UI/UX.',
     ctaLabel: 'See Portfolio',
@@ -50,8 +50,8 @@ const SECURITY_FEATURES = [
 
 function Home() {
   return (
-    <main className="home-page" id="about">
-      <section className="hero-section">
+    <main className="home-page" id="home">
+      <section className="hero-section" id="hero">
       {/* Small pill highlights the solution tier at the top of the hero */}
       <p className="hero-pill">Enterprise-Grade Solutions</p>
 

@@ -4,6 +4,10 @@
   background-color: #010713;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 *,
 *::before,
 *::after {

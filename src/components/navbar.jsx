@@ -3,7 +3,7 @@ import './navbar.css'
 
 // Central list of links so the nav stays easy to update.
 const NAV_LINKS = [
-  { label: 'Home', href: '#home' },
+  { label: 'Home', href: '#hero' },
   { label: 'About Us', href: '#about' },
   { label: 'Services', href: '#services' },
   { label: 'Pricing', href: '#pricing' },
@@ -17,10 +17,10 @@ function Navbar() {
   const closeMenu = () => setIsOpen(false)
 
   return (
-    <header className="site-header" id="home">
+    <header className="site-header">
       <nav className="nav-bar">
         {/* Brand mirrors the badge in the Figma design */}
-        <a href="#home" className="brand">
+        <a href="#hero" className="brand">
           <span className="brand-mark" aria-hidden="true">
             SS
           </span>

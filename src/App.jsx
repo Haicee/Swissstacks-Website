@@ -1,4 +1,5 @@
 import Navbar from './components/navbar'
+import Footer from './components/footer'
 import Home from './pages/home'
 import './App.css'
 
@@ -10,6 +11,9 @@ function App() {
 
       {/* Home wraps the hero + upcoming sections so we keep App lean */}
       <Home />
+
+      {/* Footer anchors contact info + navigation */}
+      <Footer />
     </div>
   )
 }
