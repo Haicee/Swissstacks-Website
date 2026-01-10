@@ -4,8 +4,8 @@ import './navbar.css'
 
 // Central list keeps everything easy to tweak; anchors point back to the home page.
 const NAV_LINKS = [
-  { label: 'Home', scrollTarget: '#hero' },
-  { label: 'About Us', to: '/about' },
+  { label: 'Home', navigateTo: { pathname: '/', hash: '#hero' } },
+  { label: 'About Us', navigateTo: { pathname: '/about', hash: '#about' } },
   { label: 'Services', href: '/#services' },
   { label: 'Pricing', href: '/#pricing' },
   { label: 'Contact', href: '/#contact' }
@@ -26,18 +26,21 @@ function Navbar() {
     }
   }
 
-  const handleHomeClick = (event, hash = '#hero') => {
+  const handleNavigate = (event, pathname, hash) => {
     event.preventDefault()
     closeMenu()
 
     const performScroll = () => {
-      // Wait a frame so the DOM is ready before scrolling.
-      requestAnimationFrame(() => scrollToHash(hash))
+      if (hash) {
+        requestAnimationFrame(() => scrollToHash(hash))
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
     }
 
-    if (location.pathname !== '/') {
-      navigate('/')
-      setTimeout(performScroll, 100)
+    if (location.pathname !== pathname) {
+      navigate(pathname)
+      setTimeout(performScroll, 120)
     } else {
       performScroll()
     }
@@ -46,7 +49,7 @@ function Navbar() {
   return (
     <header className="site-header">
       <nav className="nav-bar">
-        <Link to="/" className="brand" onClick={(event) => handleHomeClick(event, '#hero')}>
+        <Link to="/" className="brand" onClick={(event) => handleNavigate(event, '/', '#hero')}>
           <span className="brand-mark" aria-hidden="true">
             SS
           </span>
@@ -58,15 +61,17 @@ function Navbar() {
           <ul>
             {NAV_LINKS.map((link) => (
               <li key={link.label}>
-                {link.scrollTarget ? (
+                {link.navigateTo ? (
                   <a
-                    href={`/${link.scrollTarget}`}
+                    href={`${link.navigateTo.pathname}${link.navigateTo.hash ?? ''}`}
                     className={
-                      location.pathname === '/'
+                      location.pathname === link.navigateTo.pathname
                         ? 'nav-link nav-link--active'
                         : 'nav-link'
                     }
-                    onClick={(event) => handleHomeClick(event, link.scrollTarget)}
+                    onClick={(event) =>
+                      handleNavigate(event, link.navigateTo.pathname, link.navigateTo.hash)
+                    }
                   >
                     {link.label}
                   </a>

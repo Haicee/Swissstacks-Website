@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import './home.css'
+import 'animate.css';
 
 // Home groups together the hero and (eventually) other landing sections.
 // Splitting it into its own component keeps App.jsx focused on layout only.
@@ -34,44 +35,41 @@ const CORE_SERVICES = [
   }
 ]
 
-const SECURITY_FEATURES = [
-  {
-    title: 'DDOS Protection',
-    description: 'Advanced mitigation strategies to keep your servers online.'
-  },
-  {
-    title: 'Global CDN',
-    description: 'Content delivery network spanning 50+ countries for low latency.'
-  },
-  {
-    title: 'Dedicated Support',
-    description: 'Real engineers available 24/7 to solve critical issues.'
-  }
-]
+const SERVICE_ANIMATE_DELAYS = ['0s', '0.15s', '0.3s']
+const ENTERPRISE_LIST = ['0s','0.15s', '0.3s']
 
 function Home() {
   // for scroll animation
   useEffect(() => {
-    const fadeItems = document.querySelectorAll('.scroll-fade')
-    if (!fadeItems.length) return
+    const scrollItems = document.querySelectorAll('.scroll-fade, .scroll-rise')
+    if (!scrollItems.length) return
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          const target = entry.target
+          const animateIn = target.dataset.animateIn || 'animate__fadeIn'
+          const animateOut = target.dataset.animateOut || 'animate__fadeOut'
+          target.classList.add('animate__animated')
+
           if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible')
+            target.classList.add('is-visible')
+            target.classList.remove(animateOut)
+            target.classList.add(animateIn)
           } else {
-            entry.target.classList.remove('is-visible')
+            target.classList.remove('is-visible')
+            target.classList.remove(animateIn)
+            target.classList.add(animateOut)
           }
         })
       },
       { threshold: 0.3 }
     )
 
-    fadeItems.forEach((item) => observer.observe(item))
+    scrollItems.forEach((item) => observer.observe(item))
 
     return () => {
-      fadeItems.forEach((item) => observer.unobserve(item))
+      scrollItems.forEach((item) => observer.unobserve(item))
       observer.disconnect()
     }
   }, [])
@@ -80,7 +78,11 @@ function Home() {
     <main className="home-page" id="home">
       <section className="hero-section" id="hero">
       {/* Small pill highlights the solution tier at the top of the hero */}
-      <div className="hero-content scroll-fade" style={{ '--scroll-delay': '0ms' }}>
+      <div
+        className="hero-content scroll-fade"
+        data-animate-in="animate__fadeIn"
+        data-animate-out="animate__fadeOut"
+      >
         <p className="hero-pill">Enterprise-Grade Solutions</p>
 
         <h1>
@@ -107,7 +109,8 @@ function Home() {
       <section
         className="hero-stats scroll-fade"
         aria-label="Company performance stats"
-        style={{ '--scroll-delay': '120ms' }}  /* for animation delay */
+        data-animate-in="animate__fadeIn"
+        data-animate-out="animate__fadeOut"
       >
         {HERO_STATS.map((stat) => (
           <article key={stat.label} className="hero-stat">
@@ -121,7 +124,11 @@ function Home() {
       {/* Core services grid showcases main offerings */}
       <section className="services-wrapper">
         <div className="services-section" id="services">
-        <header className="services-header">
+        <header
+          className="services-header scroll-fade"
+          data-animate-in="animate__fadeIn"
+          data-animate-out="animate__fadeOut"
+        >
           <div>
             <h2 className="eyebrow">Our Core Services</h2>
             <p className="services-lede">
@@ -130,12 +137,18 @@ function Home() {
           </div>
           <a className="services-link" href="#all-services">
             View All Services →
-          </a>
+          </a>    
         </header>
 
         <div className="services-grid">
-          {CORE_SERVICES.map((service) => (
-            <article key={service.title} className="service-card">
+          {CORE_SERVICES.map((service, index) => (
+            <article
+              key={service.title}
+              className="service-card scroll-rise"
+              data-animate-in="animate__fadeInUp" /* for animation */
+              data-animate-out="animate__fadeOutDown"
+              style={{ animationDelay: SERVICE_ANIMATE_DELAYS[index] || '0s' }}
+            >
               <div className="service-icon" aria-hidden="true">
                 {service.icon}
               </div>
@@ -163,31 +176,56 @@ function Home() {
         </div>
 
         <div className="security-copy">
+          <div className="security-copy-header scroll-fade"
+          data-animate-in="animate__fadeIn" /* for animation */
+          data-animate-out="animate__fadeOutDown"
+          >
           <h2 className="eyebrow">Enterprise-Grade Security & Performance</h2>
           <p className="security-lede">
             We don't just build websites; we build fortified digital fortresses. 
             Our infrastructure is designed for speed, resilience, and uncompromised security.
           </p>
+          </div>
 
+          <div className="enterpriselist">
           <ul className="security-list">
-            {SECURITY_FEATURES.map((feature) => (
-              <li key={feature.title}>
-                <span className="security-icon" aria-hidden="true">
-                  ✓
-                </span>
-                <div>
-                  <h3>{feature.title}</h3>
-                  <p>{feature.description}</p>
-                </div>
-              </li>
-            ))}
+            <li>
+              <span className="security-icon" aria-hidden="true">
+                ✓
+              </span>
+              <div>
+                <h3>DDOS Protection</h3>
+                <p>Advanced mitigation strategies to keep your servers online.</p>
+              </div>
+            </li>
+
+            <li className='sec1'>
+              <span className="security-icon" aria-hidden="true">
+                ✓
+              </span>
+              <div>
+                <h3>Global CDN</h3>
+                <p>Content delivery network spanning 50+ countries for low latency.</p>
+              </div>
+            </li>
+
+            <li>
+              <span className="security-icon" aria-hidden="true">
+                ✓
+              </span>
+              <div>
+                <h3>Dedicated Support</h3>
+                <p>Real engineers available 24/7 to solve critical issues.</p>
+              </div>
+            </li>
           </ul>
+          </div>
         </div>
       </section>
 
       {/* Upgrade CTA */}
       <section className="upgrade-section" aria-label="Upgrade CTA">
-        <p className="upgrade-eyebrow">Ready to Upgrade Your Tech Stack?</p>
+        <p className="upgrade-eyebrow animate__animated animate__bounce">Ready to Upgrade Your Tech Stack?</p>
         <p className="upgrade-subtext">
           Join hundreds of businesses that trust SwissStack for resilient infrastructure and premium support.
         </p>

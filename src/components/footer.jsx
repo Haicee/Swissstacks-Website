@@ -1,19 +1,44 @@
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import './footer.css'
 
 const SERVICE_LINKS = ['Residential Proxies', 'Datacenter Proxies', 'Managed IT', 'Web Development']
 const COMPANY_LINKS = ['About Us', 'Careers', 'Blog', 'Contact']
 
 function Footer() {
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  const handleNavigateHome = (event) => {
+    event.preventDefault()
+
+    const performScroll = () => {
+      requestAnimationFrame(() => {
+        const target = document.querySelector('#hero')
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      })
+    }
+
+    if (location.pathname !== '/') {
+      navigate('/')
+      setTimeout(performScroll, 120)
+    } else {
+      performScroll()
+    }
+  }
+
   return (
     <footer className="site-footer">
       <div className="footer-grid">
         <div className="footer-brand">
-          <a href="#home" className="footer-logo">
+          <Link to="/" className="footer-logo" onClick={handleNavigateHome}>
             <span className="footer-logo-mark" aria-hidden="true">
               SS
             </span>
             <span className="footer-logo-name">SwissStack</span>
-          </a>
+          </Link>
           <p className="brand-body">
             Empowering businesses with resilient infrastructure and cutting-edge design since 2026.
           </p>

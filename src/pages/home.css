@@ -6,21 +6,14 @@
 }
 
 /* for scroll animation */
-.scroll-fade {
+.scroll-fade,
+.scroll-rise {
   opacity: 0;
-  transform: translateY(24px);
-  filter: blur(6px);
-  transition:
-    opacity 600ms ease,
-    transform 600ms ease,
-    filter 600ms ease;
-  transition-delay: var(--scroll-delay, 0ms);
 }
 
-.scroll-fade.is-visible {
+.scroll-fade.is-visible,
+.scroll-rise.is-visible {
   opacity: 1;
-  transform: translateY(0);
-  filter: blur(0);
 }
 
 .hero-section {
