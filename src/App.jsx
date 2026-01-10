@@ -1,6 +1,8 @@
+import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/navbar'
 import Footer from './components/footer'
 import Home from './pages/home'
+import AboutUs from './pages/about-us'
 import './App.css'
 
 function App() {
@@ -9,10 +11,13 @@ function App() {
       {/* Navbar sits at the top so it stays sticky above every page section */}
       <Navbar />
 
-      {/* Home wraps the hero + upcoming sections so we keep App lean */}
-      <Home />
+      {/* Routes let us separate the landing and about experiences */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<AboutUs />} />
+      </Routes>
 
-      {/* Footer anchors contact info + navigation */}
+      {/* Footer anchors contact info + navigation on every page */}
       <Footer />
     </div>
   )

@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import './home.css'
 
 // Home groups together the hero and (eventually) other landing sections.
@@ -49,33 +50,65 @@ const SECURITY_FEATURES = [
 ]
 
 function Home() {
+  // for scroll animation
+  useEffect(() => {
+    const fadeItems = document.querySelectorAll('.scroll-fade')
+    if (!fadeItems.length) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible')
+          } else {
+            entry.target.classList.remove('is-visible')
+          }
+        })
+      },
+      { threshold: 0.3 }
+    )
+
+    fadeItems.forEach((item) => observer.observe(item))
+
+    return () => {
+      fadeItems.forEach((item) => observer.unobserve(item))
+      observer.disconnect()
+    }
+  }, [])
+
   return (
     <main className="home-page" id="home">
       <section className="hero-section" id="hero">
       {/* Small pill highlights the solution tier at the top of the hero */}
-      <p className="hero-pill">Enterprise-Grade Solutions</p>
+      <div className="hero-content scroll-fade" style={{ '--scroll-delay': '0ms' }}>
+        <p className="hero-pill">Enterprise-Grade Solutions</p>
 
-      <h1>
-        Reliable Infrastructure. <span>Stunning Design.</span>
-      </h1>
+        <h1>
+          Reliable Infrastructure. <span>Stunning Design.</span>
+        </h1>
 
-      <p className="hero-subtext">
-        Comprehensive tech solutions including high-speed proxies, managed IT, and custom web
-        development designed for modern businesses.
-      </p>
+        <p className="hero-subtext">
+          Comprehensive tech solutions including high-speed proxies, managed IT, and custom web
+          development designed for modern businesses.
+        </p>
 
-      {/* Primary hero CTA buttons */}
-      <div className="hero-actions">
-        <a className="btn btn-primary" href="#contact">
-          Get Started
-        </a>
-        <a className="btn btn-secondary" href="#services">
-          Learn More
-        </a>
+        {/* Primary hero CTA buttons */}
+        <div className="hero-actions">
+          <a className="btn btn-primary" href="#contact">
+            Get Started
+          </a>
+          <a className="btn btn-secondary" href="#services">
+            Learn More
+          </a>
+        </div>
       </div>
 
       {/* Stats strip mirrors the reference image */}
-      <section className="hero-stats" aria-label="Company performance stats">
+      <section
+        className="hero-stats scroll-fade"
+        aria-label="Company performance stats"
+        style={{ '--scroll-delay': '120ms' }}  /* for animation delay */
+      >
         {HERO_STATS.map((stat) => (
           <article key={stat.label} className="hero-stat">
             <p className="hero-stat__value">{stat.value}</p>
