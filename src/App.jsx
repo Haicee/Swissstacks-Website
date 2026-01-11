@@ -3,6 +3,8 @@ import Navbar from './components/navbar'
 import Footer from './components/footer'
 import Home from './pages/home'
 import AboutUs from './pages/about-us'
+import Services from './pages/services'
+import Contact from './pages/contact'
 import './App.css'
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutUs />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
 
       {/* Footer anchors contact info + navigation on every page */}

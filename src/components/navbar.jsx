@@ -6,9 +6,8 @@ import './navbar.css'
 const NAV_LINKS = [
   { label: 'Home', navigateTo: { pathname: '/', hash: '#hero' } },
   { label: 'About Us', navigateTo: { pathname: '/about', hash: '#about' } },
-  { label: 'Services', href: '/#services' },
-  { label: 'Pricing', href: '/#pricing' },
-  { label: 'Contact', href: '/#contact' }
+  { label: 'Services', navigateTo: { pathname: '/services', hash: '#services' } },
+  { label: 'Contact', navigateTo: { pathname: '/contact', hash: '#contact' } },
 ]
 
 function Navbar() {
