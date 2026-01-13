@@ -1,19 +1,44 @@
 import { useState } from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import './navbar.css'
+import { useTranslation } from './translation'
 
-// Central list keeps everything easy to tweak; anchors point back to the home page.
+// Base nav structure so we can swap strings while keeping routing consistent.
 const NAV_LINKS = [
-  { label: 'Home', navigateTo: { pathname: '/', hash: '#hero' } },
-  { label: 'About Us', navigateTo: { pathname: '/about', hash: '#about' } },
-  { label: 'Services', navigateTo: { pathname: '/services', hash: '#services' } },
-  { label: 'Contact', navigateTo: { pathname: '/contact', hash: '#contact' } },
+  { key: 'home', navigateTo: { pathname: '/', hash: '#hero' } },
+  { key: 'about', navigateTo: { pathname: '/about', hash: '#about' } },
+  { key: 'services', navigateTo: { pathname: '/services', hash: '#services' } },
 ]
+
+const NAV_TRANSLATIONS = {
+  en: {
+    brand: 'SwissStack',
+    links: {
+      home: 'Home',
+      about: 'About Us',
+      services: 'Services',
+    },
+    cta: 'Contact Here',
+    menuToggle: 'Toggle navigation menu',
+  },
+  de: {
+    brand: 'SwissStack',
+    links: {
+      home: 'Startseite',
+      about: 'Über uns',
+      services: 'Leistungen',
+    },
+    cta: 'Kontakt',
+    menuToggle: 'Navigation öffnen oder schließen',
+  },
+}
 
 function Navbar() {
   const location = useLocation()
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
+  const { language } = useTranslation()
+  const copy = NAV_TRANSLATIONS[language]
 
   const toggleMenu = () => setIsOpen((prev) => !prev)
   const closeMenu = () => setIsOpen(false)
@@ -52,14 +77,14 @@ function Navbar() {
           <span className="brand-mark" aria-hidden="true">
             SS
           </span>
-          <span className="brand-name">SwissStack</span>
+          <span className="brand-name">{copy.brand}</span>
         </Link>
 
         {/* Desktop navigation + CTA */}
         <div className={`nav-links ${isOpen ? 'nav-links--open' : ''}`}>
           <ul>
             {NAV_LINKS.map((link) => (
-              <li key={link.label}>
+              <li key={link.key}>
                 {link.navigateTo ? (
                   <a
                     href={`${link.navigateTo.pathname}${link.navigateTo.hash ?? ''}`}
@@ -72,7 +97,7 @@ function Navbar() {
                       handleNavigate(event, link.navigateTo.pathname, link.navigateTo.hash)
                     }
                   >
-                    {link.label}
+                    {copy.links[link.key]}
                   </a>
                 ) : link.to ? (
                   <NavLink
@@ -83,18 +108,18 @@ function Navbar() {
                       isActive ? 'nav-link nav-link--active' : 'nav-link'
                     }
                   >
-                    {link.label}
+                    {copy.links[link.key]}
                   </NavLink>
                 ) : (
                   <a href={link.href} className="nav-link" onClick={closeMenu}>
-                    {link.label}
+                    {copy.links[link.key]}
                   </a>
                 )}
               </li>
             ))}
           </ul>
-          <a className="cta-link" href="/#portal" onClick={closeMenu}>
-            Client Portal
+          <a className="cta-link" href="/contact" onClick={(event) => handleNavigate(event, '/contact', '#contact')}>
+            {copy.cta}
           </a>
         </div>
 
@@ -102,7 +127,7 @@ function Navbar() {
         <button
           type="button"
           className={`nav-toggle ${isOpen ? 'nav-toggle--active' : ''}`}
-          aria-label="Toggle navigation menu"
+          aria-label={copy.menuToggle}
           aria-expanded={isOpen}
           onClick={toggleMenu}
         >

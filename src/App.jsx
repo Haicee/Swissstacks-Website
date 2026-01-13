@@ -5,25 +5,28 @@ import Home from './pages/home'
 import AboutUs from './pages/about-us'
 import Services from './pages/services'
 import Contact from './pages/contact'
+import { TranslationProvider } from './components/translation'
 import './App.css'
 
 function App() {
   return (
-    <div className="app-shell">
-      {/* Navbar sits at the top so it stays sticky above every page section */}
-      <Navbar />
+    <TranslationProvider>
+      <div className="app-shell">
+        {/* Navbar sits at the top so it stays sticky above every page section */}
+        <Navbar />
 
-      {/* Routes let us separate the landing and about experiences */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
+        {/* Routes let us separate the landing and about experiences */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
 
-      {/* Footer anchors contact info + navigation on every page */}
-      <Footer />
-    </div>
+        {/* Footer anchors contact info + navigation on every page */}
+        <Footer />
+      </div>
+    </TranslationProvider>
   )
 }
 

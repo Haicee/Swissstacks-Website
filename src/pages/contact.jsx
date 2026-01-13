@@ -1,59 +1,113 @@
 import './contact.css'
-import proxiesIcon from '../assets/proxy.png'
-import securityIcon from '../assets/security.png'
-import innovationIcon from '../assets/innovation.png'
-import partnershipImage from '../assets/partnership.jpg'
+import emailIcon from '../assets/email.png'
+import callIcon from '../assets/call.png'
+import { useTranslation } from '../components/translation'
+
+const translations = {
+  en: {
+    heroPill: 'Get in Touch',
+    heroHeading: "Let's Start a",
+    heroHeadingAccent: 'Conversation.',
+    heroLead:
+      'Whether you have a question about our proxy networks, need IT support, or want to discuss a new design project, our team is ready to help.',
+    formTitle: 'Send us a message',
+    formSubtitle: "Fill out the form below and we'll get back to you within 24 hours.",
+    fields: {
+      nameLabel: 'Full Name',
+      namePlaceholder: 'Alexander Smith',
+      emailLabel: 'Email Address',
+      emailPlaceholder: 'smith@example.com',
+      subjectLabel: 'Subject',
+      subjectPlaceholder: 'Enter subject',
+      messageLabel: 'Message',
+      messagePlaceholder: 'How can we help you today?',
+    },
+    submit: 'Send Message',
+    cards: {
+      emailTitle: 'Email Us',
+      emailSubtitle: 'For general inquiries',
+      callTitle: 'Call Us',
+      callSubtitle: 'Mon-Fri from 8am to 5pm',
+    },
+    toggleLabel: 'DE',
+    toggleAria: 'Switch to German',
+  },
+  de: {
+    heroPill: 'Kontakt aufnehmen',
+    heroHeading: 'Lass uns ein',
+    heroHeadingAccent: 'Gespräch beginnen.',
+    heroLead:
+      'Egal, ob du Fragen zu unseren Proxy-Netzwerken hast, IT-Support benötigst oder ein neues Designprojekt besprechen möchtest – unser Team ist bereit zu helfen.',
+    formTitle: 'Schick uns eine Nachricht',
+    formSubtitle: 'Fülle das Formular aus und wir melden uns innerhalb von 24 Stunden.',
+    fields: {
+      nameLabel: 'Vollständiger Name',
+      namePlaceholder: 'Alexander Schmidt',
+      emailLabel: 'E-Mail-Adresse',
+      emailPlaceholder: 'schmidt@example.com',
+      subjectLabel: 'Betreff',
+      subjectPlaceholder: 'Betreff eingeben',
+      messageLabel: 'Nachricht',
+      messagePlaceholder: 'Wie können wir dir helfen?',
+    },
+    submit: 'Nachricht senden',
+    cards: {
+      emailTitle: 'Schreib uns',
+      emailSubtitle: 'Für allgemeine Anfragen',
+      callTitle: 'Ruf uns an',
+      callSubtitle: 'Mo-Fr von 8 bis 17 Uhr',
+    },
+    toggleLabel: 'EN',
+    toggleAria: 'Switch to English',
+  },
+}
 
 function Contact() {
+  const { language } = useTranslation()
+  const t = translations[language]
+
   return (
     <main className="contact-page">
       {/* Hero mirrors About layout for consistency */}
       <section className="contact-hero" id="contact">
         <div className="contact-hero__inner">
-          <p className="contact-hero__pill">Get in Touch</p>
+          <p className="contact-hero__pill">{t.heroPill}</p>
           <h1>
-            Let&apos;s Start a <span>Conversation.</span>
+            {t.heroHeading} <span>{t.heroHeadingAccent}</span>
           </h1>
-          <p className="contact-hero__lede">
-            Whether you have a question about our proxy networks, need IT support, or want to discuss a new design
-            project, our team is ready to help.
-          </p>
+          <p className="contact-hero__lede">{t.heroLead}</p>
         </div>
       </section>
 
       {/* Dual column layout: form (left) and quick contact info (right) */}
       <section className="contact-main" id="contact">
         <div className="contact-form">
-          <h2>Send us a message</h2>
-          <p>Fill out the form below and we&apos;ll get back to you within 24 hours.</p>
+          <h2>{t.formTitle}</h2>
+          <p>{t.formSubtitle}</p>
           <form>
             <div className="form-row">
               <label>
-                <span>Full Name</span>
-                <input type="text" placeholder="John Doe" />
+                <span>{t.fields.nameLabel}</span>
+                <input type="text" placeholder={t.fields.namePlaceholder} />
               </label>
               <label>
-                <span>Email Address</span>
-                <input type="email" placeholder="john@example.com" />
+                <span>{t.fields.emailLabel}</span>
+                <input type="email" placeholder={t.fields.emailPlaceholder} />
               </label>
             </div>
 
             <label>
-              <span>Subject</span>
-              <select defaultValue="general">
-                <option value="general">General Inquiry</option>
-                <option value="sales">Sales</option>
-                <option value="support">Support</option>
-              </select>
+              <span>{t.fields.subjectLabel}</span>
+              <input type="text" placeholder={t.fields.subjectPlaceholder} />
             </label>
 
             <label>
-              <span>Message</span>
-              <textarea rows="5" placeholder="How can we help you today?" />
+              <span>{t.fields.messageLabel}</span>
+              <textarea rows="5" placeholder={t.fields.messagePlaceholder} />
             </label>
 
             <button type="submit" className="contact-submit">
-              Send Message
+              {t.submit}
             </button>
           </form>
         </div>
@@ -61,57 +115,24 @@ function Contact() {
         <div className="contact-details">
           <article className="contact-card">
             <span className="contact-card__icon">
-              <img src={proxiesIcon} alt="Email icon" />
+              <img src={emailIcon} alt="Email icon" />
             </span>
-            <h3>Email Us</h3>
-            <p>For general inquiries</p>
+            <h3>{t.cards.emailTitle}</h3>
+            <p>{t.cards.emailSubtitle}</p>
             <a href="mailto:hello@swissstack.com">hello@swissstack.com</a>
           </article>
 
           <article className="contact-card">
             <span className="contact-card__icon">
-              <img src={securityIcon} alt="Phone icon" />
+              <img src={callIcon} alt="Phone icon" />
             </span>
-            <h3>Call Us</h3>
-            <p>Mon-Fri from 8am to 5pm</p>
+            <h3>{t.cards.callTitle}</h3>
+            <p>{t.cards.callSubtitle}</p>
             <a href="tel:+41441234567">+41 44 123 45 67</a>
           </article>
-
-          <article className="contact-card contact-card--map">
-            <span className="contact-card__icon">
-              <img src={innovationIcon} alt="Map icon" />
-            </span>
-            <h3>Visit Our Office</h3>
-            <p>Bahnfofstrasse 10, 8001 Zurich, Switzerland</p>
-            <iframe
-              title="SwissStack Office Map"
-              className="contact-card__map"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2712.676664582121!2d8.539182576757394!3d47.37331050500449!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479aa0a65b5cd6b5%3A0x9a0f47779fba399a!2sBahnhofstrasse%2010%2C%208001%20Z%C3%BCrich%2C%20Switzerland!5e0!3m2!1sen!2sus!4v1705000000000!5m2!1sen!2sus"
-              loading="lazy"
-              allowFullScreen
-            />
-          </article>
         </div>
       </section>
 
-      {/* Support CTA mirrors About join block */}
-      <section className="contact-cta">
-        <div className="contact-cta__card">
-          <h2>Need immediate assistance?</h2>
-          <p>
-            Existing clients can log in to the Client Portal for priority support tickets and real-time status updates
-            on services.
-          </p>
-          <div className="contact-cta__actions">
-            <a href="" className="cta-btn cta-btn--primary">
-              Login to Portal
-            </a>
-            <a href="" className="cta-btn cta-btn--ghost">
-              View Knowledge Base
-            </a>
-          </div>
-        </div>
-      </section>
     </main>
   )
 }
