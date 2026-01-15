@@ -1,4 +1,6 @@
 import './about-us.css'
+import 'animate.css'
+import { useEffect } from 'react'
 import { useTranslation } from '../components/translation'
 
 const ABOUT_COPY = {
@@ -128,57 +130,136 @@ const ABOUT_COPY = {
   },
 }
 
+const MISSION_VALUE_BASE_DELAY = 0.2
+const MISSION_VALUE_DELAY_STEP = 0.15
+const JOURNEY_STEP_BASE_DELAY = 0.15
+
 function AboutUs() {
   const { language } = useTranslation()
   const copy = ABOUT_COPY[language]
+
+  useEffect(() => {
+    const scrollItems = document.querySelectorAll('.scroll-fade, .scroll-rise')
+    if (!scrollItems.length) return
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          const target = entry.target
+          if (!entry.isIntersecting || target.dataset.animated === 'true') return
+
+          const animateIn = target.dataset.animateIn || 'animate__fadeIn'
+          const animateOut = target.dataset.animateOut
+          target.classList.add('animate__animated', 'is-visible', animateIn)
+          if (animateOut) {
+            target.classList.remove(animateOut)
+          }
+
+          target.dataset.animated = 'true'
+
+          target.addEventListener(
+            'animationend',
+            () => {
+              target.classList.remove(animateIn)
+            },
+            { once: true }
+          )
+
+          obs.unobserve(target)
+        })
+      },
+      { threshold: 0.3 }
+    )
+
+    scrollItems.forEach((item) => observer.observe(item))
+
+    return () => {
+      scrollItems.forEach((item) => observer.unobserve(item))
+      observer.disconnect()
+    }
+  }, [])
   return (
     <main className="about-page">
       <section className="about-hero" id="about">
         <div className="about-hero__inner">
           {/* Badge mirrors the design reference while differentiating from the home hero */}
-          <p className="about-hero__pill">{copy.hero.eyebrow}</p>
+          <p
+            className="about-hero__pill scroll-fade"
+            data-animate-in="animate__fadeIn"
+            style={{ animationDelay: '0.1s' }}
+          >
+            {copy.hero.eyebrow}
+          </p>
 
           {/* Highlighted word dropped into a <span> so we can color it independently */}
-          <h1>
+          <h1
+            className="scroll-fade"
+            data-animate-in="animate__fadeIn"
+            style={{ animationDelay: '0.2s' }}
+          >
             Empowering Digital <span>{copy.hero.highlight}</span>
           </h1>
 
           {/* Supporting paragraph */}
-          <p className="about-hero__lede">{copy.hero.body}</p>
+          <p
+            className="about-hero__lede scroll-fade"
+            data-animate-in="animate__fadeIn"
+            style={{ animationDelay: '0.35s' }}
+          >
+            {copy.hero.body}
+          </p>
         </div>
       </section>
 
       {/* Mission block mirrors the security layout with centered content */}
       <section className="mission-section" id="mission">
         <div className="mission-content">
-          <h2>{copy.mission.title}</h2>
-          <p className="mission-lede">{copy.mission.description}</p>
+          <h2 className="scroll-fade" data-animate-in="animate__fadeIn" style={{ animationDelay: '0s' }}>
+            {copy.mission.title}
+          </h2>
+          <p
+            className="mission-lede scroll-fade"
+            style={{ animationDelay: '0.1s' }}
+            data-animate-in="animate__fadeIn"
+          >
+            {copy.mission.description}
+          </p>
 
           <ul className="mission-values">
-            {copy.mission.values.map((value) => (
-              <li key={value.key}>
-                <span className="mission-icon" aria-hidden="true">
-                  {value.icon}
-                </span>
-                <div>
-                  <h3>{value.title}</h3>
-                  <p>{value.description}</p>
-                </div>
-              </li>
-            ))}
+            {copy.mission.values.map((value, index) => {
+              const animationClass =
+                index % 2 === 0 ? 'animate__slideInLeft' : 'animate__slideInRight'
+              const animationDelay = `${MISSION_VALUE_BASE_DELAY + index * MISSION_VALUE_DELAY_STEP}s`
+              return (
+                <li
+                  key={value.key}
+                  className="scroll-rise"
+                  data-animate-in={animationClass}
+                  style={{ animationDelay }}
+                >
+                  <span className="mission-icon" aria-hidden="true">
+                    {value.icon}
+                  </span>
+                  <div>
+                    <h3>{value.title}</h3>
+                    <p>{value.description}</p>
+                  </div>
+                </li>
+              )
+            })}
           </ul>
         </div>
       </section>
 
       {/* Journey timeline shows company evolution */}
       <section className="journey-section" id="journey">
-        <div className="journey-intro">
+        <div className="journey-intro scroll-fade" data-animate-in="animate__zoomIn">
           <h2>{copy.journey.title}</h2>
           <p className="journey-subtext">{copy.journey.subtext}</p>
         </div>
 
         <div className="journey-timeline">
-          {copy.journey.steps.map((step) => {
+          {copy.journey.steps.map((step, index) => {
             const copy = (
               <>
                 <p className="journey-date">{step.eyebrow}</p>
@@ -188,7 +269,12 @@ function AboutUs() {
             )
 
             return (
-              <article key={step.title} className={`journey-step journey-step--${step.alignment}`}>
+              <article
+                key={step.title}
+                className={`journey-step journey-step--${step.alignment} scroll-fade`}
+                data-animate-in="animate__zoomIn"
+                style={{ animationDelay: `${JOURNEY_STEP_BASE_DELAY * (index + 1)}s` }}
+              >
                 <div className="journey-content journey-content--left">
                   {step.alignment === 'left' && copy}
                 </div>
@@ -206,7 +292,7 @@ function AboutUs() {
 
       {/* Join CTA mirrors the design reference */}
       <section className="join-section" id="join">
-        <div className="join-card">
+        <div className="join-card scroll-fade" data-animate-in="animate__fadeInUp" style={{ animationDelay: '0.25s' }}>
           <h2>{copy.join.title}</h2>
           <p>{copy.join.body}</p>
           <div className="join-actions">

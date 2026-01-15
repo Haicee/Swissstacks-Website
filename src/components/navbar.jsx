@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import './navbar.css'
 import { useTranslation } from './translation'
+import brandLogo from '../assets/Logo 3.png'
 
 // Base nav structure so we can swap strings while keeping routing consistent.
 const NAV_LINKS = [
@@ -74,9 +75,7 @@ function Navbar() {
     <header className="site-header">
       <nav className="nav-bar">
         <Link to="/" className="brand" onClick={(event) => handleNavigate(event, '/', '#hero')}>
-          <span className="brand-mark" aria-hidden="true">
-            SS
-          </span>
+          <img className="brand-logo" src={brandLogo} alt={`${copy.brand} logo`} />
           <span className="brand-name">{copy.brand}</span>
         </Link>
 

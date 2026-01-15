@@ -1,6 +1,8 @@
 import './services.css'
+import 'animate.css'
+import { useEffect } from 'react'
 import { useTranslation } from '../components/translation'
-import proxiesIcon from '../assets/proxy.png'
+import proxiesIcon from '../assets/latency.png'
 import webIcon from '../assets/web.png'
 import itIcon from '../assets/It.png'
 import securityIcon from '../assets/secure.png'
@@ -128,23 +130,72 @@ const SERVICES_COPY = {
   },
 }
 
+const CORE_CARD_DELAY_STEP = 0.15
+const STANDARD_CARD_DELAY_STEP = 0.1
+
 function Services() {
   const { language } = useTranslation()
   const copy = SERVICES_COPY[language]
+
+  useEffect(() => {
+    const scrollItems = document.querySelectorAll('.scroll-fade, .scroll-rise')
+    if (!scrollItems.length) return
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          const target = entry.target
+          if (!entry.isIntersecting || target.dataset.animated === 'true') return
+
+          const animateIn = target.dataset.animateIn || 'animate__fadeIn'
+          const animateOut = target.dataset.animateOut
+          target.classList.add('animate__animated', 'is-visible', animateIn)
+          if (animateOut) {
+            target.classList.remove(animateOut)
+          }
+
+          target.dataset.animated = 'true'
+
+          target.addEventListener(
+            'animationend',
+            () => {
+              target.classList.remove(animateIn)
+            },
+            { once: true }
+          )
+
+          obs.unobserve(target)
+        })
+      },
+      { threshold: 0.3 }
+    )
+
+    scrollItems.forEach((item) => observer.observe(item))
+
+    return () => {
+      scrollItems.forEach((item) => observer.unobserve(item))
+      observer.disconnect()
+    }
+  }, [])
+
   return (
     <main className="services-page">
       <section className="services-hero" id="services">
         <div className="services-hero__inner">
-          <p className="services-hero__pill">{copy.hero.pill}</p>
-          <h1>
+          <p className="services-hero__pill scroll-fade" data-animate-in="animate__fadeIn" style={{ animationDelay: '0s' }}>
+            {copy.hero.pill}
+          </p>
+          <h1 className="scroll-fade" data-animate-in="animate__fadeIn" style={{ animationDelay: '0.1s' }}>
             {copy.hero.heading} <span>{copy.hero.highlight}</span>
           </h1>
-          <p className="services-hero__lede">{copy.hero.lede}</p>
+          <p className="services-hero__lede scroll-fade" data-animate-in="animate__fadeIn" style={{ animationDelay: '0.25s' }}>
+            {copy.hero.lede}
+          </p>
         </div>
       </section>
 
       <section className="services-core" id="solutions">
-        <header className="services-core__intro">
+        <header className="services-core__intro scroll-fade" data-animate-in="animate__fadeInUp">
           <p className="services-core__eyebrow">{copy.pillars.eyebrow}</p>
           <h2>{copy.pillars.heading}</h2>
           <p>{copy.pillars.body}</p>
@@ -152,7 +203,12 @@ function Services() {
 
         <div className="services-core__grid">
           {copy.cards.map((card, index) => (
-            <article key={card.key} className="core-card">
+            <article
+              key={card.key}
+              className="core-card scroll-rise"
+              data-animate-in="animate__fadeInUp"
+              style={{ animationDelay: `${index * CORE_CARD_DELAY_STEP}s` }}
+            >
               <span className="core-card__icon">
                 <img
                   src={[proxiesIcon, itIcon, webIcon][index]}
@@ -181,14 +237,19 @@ function Services() {
       </section>
 
       <section className="services-standard" id="standard">
-        <div className="services-standard__intro">
+        <div className="services-standard__intro scroll-fade" data-animate-in="animate__fadeIn">
           <h2>{copy.standard.heading}</h2>
           <p>{copy.standard.body}</p>
         </div>
 
         <div className="services-standard__grid">
           {copy.standard.features.map((feature, index) => (
-            <article key={feature.title} className="standard-card">
+            <article
+              key={feature.title}
+              className="standard-card scroll-rise"
+              data-animate-in="animate__fadeInUp"
+              style={{ animationDelay: `${index * STANDARD_CARD_DELAY_STEP}s` }}
+            >
               <span className="standard-card__icon">
                 <img
                   src={[proxiesIcon, securityIcon, partnersIcon, innovationIcon][index]}
@@ -203,7 +264,7 @@ function Services() {
       </section>
 
       <section className="services-cta" id="cta">
-        <div className="services-cta__card">
+        <div className="services-cta__card scroll-fade" data-animate-in="animate__fadeInUp" style={{ animationDelay: '0.2s' }}>
           <h2>{copy.cta.heading}</h2>
           <p>{copy.cta.body}</p>
           <div className="services-cta__actions">

@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import './home.css'
 import 'animate.css'
 import { useTranslation } from '../components/translation'
+import { useNavigate } from 'react-router-dom'
 
 const HERO_STATS = [
   { key: 'uptime', value: '99.9%' },
@@ -29,6 +30,7 @@ const CORE_SERVICES = [
 
 const SECURITY_FEATURES = ['ddos', 'cdn', 'support']
 const SERVICE_ANIMATE_DELAYS = ['0s', '0.15s', '0.3s']
+const SECURITY_ANIMATE_DELAYS = ['0s', '0.2s', '0.4s']
 
 const HOME_COPY = {
   en: {
@@ -166,28 +168,51 @@ const HOME_COPY = {
 function Home() {
   const { language } = useTranslation()
   const copy = HOME_COPY[language]
+  const navigate = useNavigate()
+
+  const handleHeroNavigate = (event, path, hash) => {
+    if (event) {
+      event.preventDefault()
+    }
+    navigate(path)
+    if (hash) {
+      setTimeout(() => {
+        const target = document.querySelector(hash)
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+      }, 150)
+    }
+  }
 
   useEffect(() => {
     const scrollItems = document.querySelectorAll('.scroll-fade, .scroll-rise')
     if (!scrollItems.length) return
 
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries, obs) => {
         entries.forEach((entry) => {
           const target = entry.target
-          const animateIn = target.dataset.animateIn || 'animate__fadeIn'
-          const animateOut = target.dataset.animateOut || 'animate__fadeOut'
-          target.classList.add('animate__animated')
+          if (!entry.isIntersecting || target.dataset.animated === 'true') return
 
-          if (entry.isIntersecting) {
-            target.classList.add('is-visible')
+          const animateIn = target.dataset.animateIn || 'animate__fadeIn'
+          const animateOut = target.dataset.animateOut
+          target.classList.add('animate__animated', 'is-visible', animateIn)
+          if (animateOut) {
             target.classList.remove(animateOut)
-            target.classList.add(animateIn)
-          } else {
-            target.classList.remove('is-visible')
-            target.classList.remove(animateIn)
-            target.classList.add(animateOut)
           }
+
+          target.dataset.animated = 'true'
+
+          target.addEventListener(
+            'animationend',
+            () => {
+              target.classList.remove(animateIn)
+            },
+            { once: true }
+          )
+
+          obs.unobserve(target)
         })
       },
       { threshold: 0.3 }
@@ -214,10 +239,18 @@ function Home() {
           <p className="hero-subtext">{copy.hero.subtext}</p>
 
           <div className="hero-actions">
-            <a className="btn btn-primary" href="#contact">
+            <a
+              className="btn btn-primary"
+              href="/contact#contact"
+              onClick={(event) => handleHeroNavigate(event, '/contact', '#contact')}
+            >
               {copy.hero.primaryCta}
             </a>
-            <a className="btn btn-secondary" href="#services">
+            <a
+              className="btn btn-secondary"
+              href="/about#about"
+              onClick={(event) => handleHeroNavigate(event, '/about', '#about')}
+            >
               {copy.hero.secondaryCta}
             </a>
           </div>
@@ -241,11 +274,15 @@ function Home() {
       <section className="services-wrapper">
         <div className="services-section" id="services">
           <header className="services-header scroll-fade" data-animate-in="animate__fadeIn" data-animate-out="animate__fadeOut">
-            <div>
+            <div> 
               <h2 className="eyebrow">{copy.services.eyebrow}</h2>
               <p className="services-lede">{copy.services.lede}</p>
             </div>
-            <a className="services-link" href="#all-services">
+            <a 
+            className="services-link" 
+            href="/services#services"
+            onClick={(event) => handleHeroNavigate(event, '/services', '#services')}
+            >
               {copy.services.link}
             </a>
           </header>
@@ -266,9 +303,12 @@ function Home() {
                   </div>
                   <h3>{cardCopy.title}</h3>
                   <p>{cardCopy.description}</p>
+                  
+                  {/* For CTA
                   <a href={service.ctaHref} className="service-cta">
                     {cardCopy.cta}
                   </a>
+                  */}
                 </article>
               )
             })}
@@ -288,7 +328,12 @@ function Home() {
               {SECURITY_FEATURES.map((feature, index) => {
                 const item = copy.security.items[feature]
                 return (
-                  <li key={feature} className={index === 1 ? 'sec1' : undefined}>
+                  <li
+                    key={feature}
+                    className={`scroll-rise${index === 1 ? ' sec1' : ''}`}
+                    data-animate-in="animate__backInRight"
+                    style={{ animationDelay: SECURITY_ANIMATE_DELAYS[index] || '0s' }}
+                  >
                     <span className="security-icon" aria-hidden="true">
                       ✓
                     </span>
@@ -304,11 +349,21 @@ function Home() {
         </div>
       </section>
 
-      <section className="upgrade-section" aria-label="Upgrade CTA">
-        <p className="upgrade-eyebrow animate__animated animate__bounce">{copy.upgrade.eyebrow}</p>
+      <section
+        className="upgrade-section scroll-fade"
+        aria-label="Upgrade CTA"
+        data-animate-in="animate__fadeInUp"
+        data-animate-out="animate__fadeOutDown"
+        style={{ animationDelay: '0.25s' }}
+      >
+        <p className="upgrade-eyebrow">{copy.upgrade.eyebrow}</p>
         <p className="upgrade-subtext">{copy.upgrade.subtext}</p>
         <div className="upgrade-actions">
-          <a href="#start-trial" className="btn btn-primary">
+          <a 
+          className="btn btn-primary"
+          href="/contact#contact-pill" 
+          onClick={(event) => handleHeroNavigate(event, '/contact', '#contact')}
+          >
             {copy.upgrade.cta}
           </a>
         </div>
