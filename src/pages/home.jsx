@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 const HERO_STATS = [
   { key: 'uptime', value: '99.9%' },
   { key: 'support', value: '24/7' },
-  { key: 'clients', value: '500+' },
+  { key: 'clients', value: '50+' },
 ]
 
 const CORE_SERVICES = [
@@ -46,7 +46,7 @@ const HOME_COPY = {
     stats: {
       uptime: 'Uptime Guarantee',
       support: 'Expert Support',
-      clients: 'Clients Served',
+      clients: 'Successful Projects',
     },
     services: {
       eyebrow: 'Our Core Services',
@@ -111,7 +111,7 @@ const HOME_COPY = {
     stats: {
       uptime: 'Verfügbarkeitsgarantie',
       support: 'Experten-Support',
-      clients: 'Betreute Kunden',
+      clients: 'Erfolgreiches Projekte',
     },
     services: {
       eyebrow: 'Unsere Kernleistungen',
@@ -125,7 +125,7 @@ const HOME_COPY = {
           cta: 'Pläne ansehen →',
         },
         it: {
-          title: 'Verwaltete IT',
+          title: 'Managed IT',
           description:
             'Ganzheitliches Netzwerkmanagement, Cybersecurity-Audits und nahtlose Cloud-Integration.',
           cta: 'IT entdecken →',
@@ -158,7 +158,7 @@ const HOME_COPY = {
       },
     },
     upgrade: {
-      eyebrow: 'Bereit für ein Upgrade Ihres Tech-Stacks?',
+      eyebrow: 'Bereit für ein Upgrade?',
       subtext: 'Schließen Sie sich den Unternehmen an, die SwissStack für resiliente Infrastruktur und Premium-Support vertrauen.',
       cta: 'Vertrieb kontaktieren',
     },

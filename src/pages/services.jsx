@@ -228,9 +228,11 @@ function Services() {
                   <li key={item}>{item}</li>
                 ))}
               </ul>
+              {/*
               <a href={index === 0 ? '/services/proxies' : index === 1 ? '/services/it' : '/services/web'} className="core-card__link">
                 {card.link}
               </a>
+              */}
             </article>
           ))}
         </div>

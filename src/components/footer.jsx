@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import './footer.css'
 import './privacyModal.css'
 import { useTranslation } from './translation'
+import footerLogo from '../assets/Logo 2.png'
 
 const SERVICE_LINKS = [
   { key: 'residential', path: '/services', hash: '#services' },
@@ -87,7 +88,7 @@ const FOOTER_TRANSLATIONS = {
     footerLinks: {
       residential: 'Residential Proxies',
       datacenter: 'Datacenter Proxies',
-      managed: 'Verwaltete IT',
+      managed: 'Managed IT',
       web: 'Webentwicklung',
       about: 'Über uns',
       contact: 'Kontakt',
@@ -212,9 +213,7 @@ function Footer() {
       <div className="footer-grid">
         <div className="footer-brand">
           <Link to="/" className="footer-logo" onClick={handleNavigateHome}>
-            <span className="footer-logo-mark" aria-hidden="true">
-              SS
-            </span>
+            <img className="footer-logo-mark" src={footerLogo} alt="SwissStack logo" />
             <span className="footer-logo-name">SwissStack</span>
           </Link>
           <p className="brand-body">{copy.brandBody}</p>
@@ -255,12 +254,7 @@ function Footer() {
         <div className="footer-column">
           <p className="footer-heading">{copy.subscribeHeading}</p>
           <p className="footer-subtext">{copy.subscribeCopy}</p>
-          <form className="footer-form" onSubmit={(event) => event.preventDefault()}>
-            <input type="email" placeholder={copy.emailPlaceholder} aria-label={copy.emailPlaceholder} />
-            <button type="submit" aria-label={copy.submitAria}>
-              ➔
-            </button>
-          </form>
+          
         </div>
       </div>
 

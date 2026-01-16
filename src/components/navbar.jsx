@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import './navbar.css'
 import { useTranslation } from './translation'
-import brandLogo from '../assets/Logo 3.png'
+import brandLogo from '../assets/Logo 2.png'
 
 // Base nav structure so we can swap strings while keeping routing consistent.
 const NAV_LINKS = [
@@ -81,45 +81,47 @@ function Navbar() {
 
         {/* Desktop navigation + CTA */}
         <div className={`nav-links ${isOpen ? 'nav-links--open' : ''}`}>
-          <ul>
-            {NAV_LINKS.map((link) => (
-              <li key={link.key}>
-                {link.navigateTo ? (
-                  <a
-                    href={`${link.navigateTo.pathname}${link.navigateTo.hash ?? ''}`}
-                    className={
-                      location.pathname === link.navigateTo.pathname
-                        ? 'nav-link nav-link--active'
-                        : 'nav-link'
-                    }
-                    onClick={(event) =>
-                      handleNavigate(event, link.navigateTo.pathname, link.navigateTo.hash)
-                    }
-                  >
-                    {copy.links[link.key]}
-                  </a>
-                ) : link.to ? (
-                  <NavLink
-                    to={link.to}
-                    end={link.exact}
-                    onClick={closeMenu}
-                    className={({ isActive }) =>
-                      isActive ? 'nav-link nav-link--active' : 'nav-link'
-                    }
-                  >
-                    {copy.links[link.key]}
-                  </NavLink>
-                ) : (
-                  <a href={link.href} className="nav-link" onClick={closeMenu}>
-                    {copy.links[link.key]}
-                  </a>
-                )}
-              </li>
-            ))}
-          </ul>
-          <a className="cta-link" href="/contact" onClick={(event) => handleNavigate(event, '/contact', '#contact')}>
-            {copy.cta}
-          </a>
+          <div className="nav-links__panel">
+            <ul>
+              {NAV_LINKS.map((link) => (
+                <li key={link.key}>
+                  {link.navigateTo ? (
+                    <a
+                      href={`${link.navigateTo.pathname}${link.navigateTo.hash ?? ''}`}
+                      className={
+                        location.pathname === link.navigateTo.pathname
+                          ? 'nav-link nav-link--active'
+                          : 'nav-link'
+                      }
+                      onClick={(event) =>
+                        handleNavigate(event, link.navigateTo.pathname, link.navigateTo.hash)
+                      }
+                    >
+                      {copy.links[link.key]}
+                    </a>
+                  ) : link.to ? (
+                    <NavLink
+                      to={link.to}
+                      end={link.exact}
+                      onClick={closeMenu}
+                      className={({ isActive }) =>
+                        isActive ? 'nav-link nav-link--active' : 'nav-link'
+                      }
+                    >
+                      {copy.links[link.key]}
+                    </NavLink>
+                  ) : (
+                    <a href={link.href} className="nav-link" onClick={closeMenu}>
+                      {copy.links[link.key]}
+                    </a>
+                  )}
+                </li>
+              ))}
+            </ul>
+            <a className="cta-link" href="/contact" onClick={(event) => handleNavigate(event, '/contact', '#contact')}>
+              {copy.cta}
+            </a>
+          </div>
         </div>
 
         {/* Hamburger button for tablets/phones */}
