@@ -3,8 +3,9 @@
   top: 0;
   z-index: 1000;
   backdrop-filter: blur(12px);
-  background: rgba(4, 14, 35, 0.85);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: 0 8px 30px rgba(15, 29, 51, 0.08);
 }
 
 .nav-bar {
@@ -23,7 +24,7 @@
   gap: 0.5rem;
   font-weight: 700;
   letter-spacing: 0.5px;
-  color: inherit;
+  color: var(--text-primary);
   text-decoration: none;
 }
 
@@ -76,22 +77,22 @@
 }
 
 .nav-links a {
-  color: inherit;
+  color: #142c55f3;
   text-decoration: none;
   font-weight: 500;
+  
 }
 
 .nav-links a:hover {
-  color: #41c1ff;
+  color: var(--accent-primary);
 }
 
 .cta-link {
   padding: 0.55rem 1.3rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, #2a6bff, #4dd1ff);
-  color: #031127;
+  background: var(--accent-gradient);
+  color: #ffffff;
   font-weight: 600;
-  box-shadow: 0 10px 25px rgba(48, 127, 255, 0.35);
   text-decoration: none;
 }
 
@@ -100,11 +101,11 @@
   flex-direction: column;
   gap: 0.3rem;
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(15, 29, 51, 0.15);
   border-radius: 999px;
   padding: 0.5rem;
   cursor: pointer;
-  color: #f5f7ff;
+  color: var(--text-primary);
 }
 
 .nav-toggle span {
@@ -130,7 +131,7 @@
 .nav-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(15, 29, 51, 0.4);
   opacity: 0;
   pointer-events: none;
   transition: opacity 250ms ease;
@@ -148,7 +149,7 @@
     top: calc(100% + 0.75rem);
     right: clamp(1rem, 5vw, 2.5rem);
     width: min(320px, 85vw);
-    background: rgba(3, 13, 31, 0.95);
+    background: #ffffff;
     border-radius: 22px;
     padding: 1.75rem;
     flex-direction: column;
@@ -157,9 +158,9 @@
     transform: translateY(-10px) scale(0.97);
     opacity: 0;
     pointer-events: none;
-    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.45);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(14px);
+    box-shadow: 0 25px 55px rgba(15, 29, 51, 0.15);
+    border: 1px solid var(--border-subtle);
+    backdrop-filter: blur(8px);
   }
 
   .nav-links__panel {
@@ -184,12 +185,15 @@
     font-size: 1rem;
     text-align: left;
     padding: 0.1rem 0;
+    color: var(--text-primary);
   }
 
   .cta-link {
     width: 100%;
     text-align: center;
     padding: 0.75rem 1.3rem;
+    background: linear-gradient(135deg, #1e5aff, #41c1ff);
+    color: #ffffff;
   }
 
   .nav-links--open {

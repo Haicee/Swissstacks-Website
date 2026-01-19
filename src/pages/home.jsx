@@ -37,7 +37,7 @@ const HOME_COPY = {
     hero: {
       pill: 'Enterprise-Grade Solutions',
       heading: 'Reliable Infrastructure.',
-      highlight: 'Stunning Design.',
+      highlight: ' Stunning Design.',
       subtext:
         'Comprehensive tech solutions including high-speed proxies, managed IT, and custom web development designed for modern businesses.',
       primaryCta: 'Get Started',
@@ -228,60 +228,63 @@ function Home() {
 
   return (
     <main className="home-page" id="home">
-      <section className="hero-section" id="hero">
-        <div className="hero-content scroll-fade" data-animate-in="animate__fadeIn" data-animate-out="animate__fadeOut">
-          <p className="hero-pill">{copy.hero.pill}</p>
+      <section className="home-hero" id="hero">
+        <div className="home-hero__inner">
+          <div className="hero-content scroll-fade" data-animate-in="animate__fadeIn" data-animate-out="animate__fadeOut">
+            <p className="hero-pill">{copy.hero.pill}</p>
 
-          <h1>
-            {copy.hero.heading} <span>{copy.hero.highlight}</span>
-          </h1>
+            <h1 className="hero-heading scroll-fade" data-animate-in="animate__fadeIn" style={{ animationDelay: '0.2s' }}>
+              <span className="hero-heading__primary">{copy.hero.heading}</span>
+              <span className="hero-heading__highlight">{copy.hero.highlight}</span>
+            </h1>
 
-          <p className="hero-subtext">{copy.hero.subtext}</p>
+            <p className="hero-subtext">{copy.hero.subtext}</p>
 
-          <div className="hero-actions">
-            <a
-              className="btn btn-primary"
-              href="/contact#contact"
-              onClick={(event) => handleHeroNavigate(event, '/contact', '#contact')}
-            >
-              {copy.hero.primaryCta}
-            </a>
-            <a
-              className="btn btn-secondary"
-              href="/about#about"
-              onClick={(event) => handleHeroNavigate(event, '/about', '#about')}
-            >
-              {copy.hero.secondaryCta}
-            </a>
+            <div className="hero-actions">
+              <a
+                className="btn btn-primary"
+                href="/contact#contact"
+                onClick={(event) => handleHeroNavigate(event, '/contact', '#contact')}
+              >
+                {copy.hero.primaryCta}
+              </a>
+              <a
+                className="btn btn-secondary"
+                href="/about#about"
+                onClick={(event) => handleHeroNavigate(event, '/about', '#about')}
+              >
+                {copy.hero.secondaryCta}
+              </a>
+            </div>
           </div>
-        </div>
 
-        <section
-          className="hero-stats scroll-fade"
-          aria-label="Company performance stats"
-          data-animate-in="animate__fadeIn"
-          data-animate-out="animate__fadeOut"
-        >
-          {HERO_STATS.map((stat) => (
-            <article key={stat.key} className="hero-stat">
-              <p className="hero-stat__value">{stat.value}</p>
-              <p className="hero-stat__label">{copy.stats[stat.key]}</p>
-            </article>
-          ))}
-        </section>
+          <section
+            className="hero-stats home-hero__stats scroll-fade"
+            aria-label="Company performance stats"
+            data-animate-in="animate__fadeIn"
+            data-animate-out="animate__fadeOut"
+          >
+            {HERO_STATS.map((stat) => (
+              <article key={stat.key} className="hero-stat">
+                <p className="hero-stat__value">{stat.value}</p>
+                <p className="hero-stat__label">{copy.stats[stat.key]}</p>
+              </article>
+            ))}
+          </section>
+        </div>
       </section>
 
-      <section className="services-wrapper">
-        <div className="services-section" id="services">
+      <section className="home-services" id="services">
+        <div className="home-services__container">
           <header className="services-header scroll-fade" data-animate-in="animate__fadeIn" data-animate-out="animate__fadeOut">
-            <div> 
+            <div>
               <h2 className="eyebrow">{copy.services.eyebrow}</h2>
               <p className="services-lede">{copy.services.lede}</p>
             </div>
-            <a 
-            className="services-link" 
-            href="/services#services"
-            onClick={(event) => handleHeroNavigate(event, '/services', '#services')}
+            <a
+              className="services-link"
+              href="/services#services"
+              onClick={(event) => handleHeroNavigate(event, '/services', '#services')}
             >
               {copy.services.link}
             </a>
@@ -303,7 +306,7 @@ function Home() {
                   </div>
                   <h3>{cardCopy.title}</h3>
                   <p>{cardCopy.description}</p>
-                  
+
                   {/* For CTA
                   <a href={service.ctaHref} className="service-cta">
                     {cardCopy.cta}
@@ -316,56 +319,59 @@ function Home() {
         </div>
       </section>
 
-      <section className="security-section" id="security">
-        <div className="security-copy">
-          <div className="security-copy-header scroll-fade" data-animate-in="animate__fadeIn" data-animate-out="animate__fadeOutDown">
-            <h2 className="eyebrow">{copy.security.heading}</h2>
-            <p className="security-lede">{copy.security.lede}</p>
-          </div>
+      <section className="home-security" id="security">
+        <div className="home-security__inner">
+          <div className="security-copy">
+            <div className="security-copy-header scroll-fade" data-animate-in="animate__fadeIn" data-animate-out="animate__fadeOutDown">
+              <h2 className="eyebrow">{copy.security.heading}</h2>
+              <p className="security-lede">{copy.security.lede}</p>
+            </div>
 
-          <div className="enterpriselist">
-            <ul className="security-list">
-              {SECURITY_FEATURES.map((feature, index) => {
-                const item = copy.security.items[feature]
-                return (
-                  <li
-                    key={feature}
-                    className={`scroll-rise${index === 1 ? ' sec1' : ''}`}
-                    data-animate-in="animate__backInRight"
-                    style={{ animationDelay: SECURITY_ANIMATE_DELAYS[index] || '0s' }}
-                  >
-                    <span className="security-icon" aria-hidden="true">
-                      ✓
-                    </span>
-                    <div>
-                      <h3>{item.title}</h3>
-                      <p>{item.body}</p>
-                    </div>
-                  </li>
-                )
-              })}
-            </ul>
+            <div className="enterpriselist">
+              <ul className="security-list">
+                {SECURITY_FEATURES.map((feature, index) => {
+                  const item = copy.security.items[feature]
+                  return (
+                    <li
+                      key={feature}
+                      className={`scroll-rise${index === 1 ? ' sec1' : ''}`}
+                      data-animate-in="animate__backInRight"
+                      style={{ animationDelay: SECURITY_ANIMATE_DELAYS[index] || '0s' }}
+                    >
+                      <span className="security-icon" aria-hidden="true">
+                        ✓
+                      </span>
+                      <div>
+                        <h3>{item.title}</h3>
+                        <p>{item.body}</p>
+                      </div>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
-      <section
-        className="upgrade-section scroll-fade"
-        aria-label="Upgrade CTA"
-        data-animate-in="animate__fadeInUp"
-        data-animate-out="animate__fadeOutDown"
-        style={{ animationDelay: '0.25s' }}
-      >
-        <p className="upgrade-eyebrow">{copy.upgrade.eyebrow}</p>
-        <p className="upgrade-subtext">{copy.upgrade.subtext}</p>
-        <div className="upgrade-actions">
-          <a 
-          className="btn btn-primary"
-          href="/contact#contact-pill" 
-          onClick={(event) => handleHeroNavigate(event, '/contact', '#contact')}
-          >
-            {copy.upgrade.cta}
-          </a>
+      <section className="home-upgrade" aria-label="Upgrade CTA">
+        <div
+          className="home-upgrade__card scroll-fade"
+          data-animate-in="animate__fadeInUp"
+          data-animate-out="animate__fadeOutDown"
+          style={{ animationDelay: '0.25s' }}
+        >
+          <p className="upgrade-eyebrow">{copy.upgrade.eyebrow}</p>
+          <p className="upgrade-subtext">{copy.upgrade.subtext}</p>
+          <div className="upgrade-actions">
+            <a
+              className="btn btn-primary"
+              href="/contact#contact-pill"
+              onClick={(event) => handleHeroNavigate(event, '/contact', '#contact')}
+            >
+              {copy.upgrade.cta}
+            </a>
+          </div>
         </div>
       </section>
     </main>

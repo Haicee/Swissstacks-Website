@@ -5,6 +5,7 @@ import Home from './pages/home'
 import AboutUs from './pages/about-us'
 import Services from './pages/services'
 import Contact from './pages/contact'
+import Portfolio from './pages/portfolio'
 import { TranslationProvider } from './components/translation'
 import './App.css'
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/portfolio" element={<Portfolio />} />
         </Routes>
 
         {/* Footer anchors contact info + navigation on every page */}

@@ -9,6 +9,7 @@ const NAV_LINKS = [
   { key: 'home', navigateTo: { pathname: '/', hash: '#hero' } },
   { key: 'about', navigateTo: { pathname: '/about', hash: '#about' } },
   { key: 'services', navigateTo: { pathname: '/services', hash: '#services' } },
+  { key: 'portfolio', navigateTo: { pathname: '/portfolio', hash: '#portfolio' } },
 ]
 
 const NAV_TRANSLATIONS = {
@@ -18,6 +19,7 @@ const NAV_TRANSLATIONS = {
       home: 'Home',
       about: 'About Us',
       services: 'Services',
+      portfolio: 'Portfolio',
     },
     cta: 'Contact Here',
     menuToggle: 'Toggle navigation menu',
@@ -28,6 +30,7 @@ const NAV_TRANSLATIONS = {
       home: 'Startseite',
       about: 'Über uns',
       services: 'Leistungen',
+      portfolio: 'Portfolio',
     },
     cta: 'Kontakt',
     menuToggle: 'Navigation öffnen oder schließen',

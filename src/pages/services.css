@@ -37,6 +37,7 @@
   display: flex;
   flex-direction: column;
   gap: clamp(3rem, 6vw, 6rem);
+  background: var(--bg-page);
 }
 
 .services-hero {
@@ -50,6 +51,7 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  background: linear-gradient(180deg, #fbfdff 0%, #eff4fb 60%, #e3ebf7 100%);
 }
 
 .services-hero::before,
@@ -57,14 +59,13 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at top, rgba(38, 84, 187, 0.2), transparent 60%);
-  opacity: 0.8;
+  background: radial-gradient(circle at 20% 20%, rgba(11, 99, 246, 0.18), transparent 60%);
+  opacity: 0.7;
   pointer-events: none;
 }
 
 .services-hero::after {
-  background: radial-gradient(circle at 80% 20%, rgba(32, 168, 255, 0.25), transparent 50%);
-  mix-blend-mode: screen;
+  background: radial-gradient(circle at 80% 25%, rgba(42, 176, 255, 0.2), transparent 55%);
 }
 
 .services-hero__inner {
@@ -84,15 +85,15 @@
   justify-content: center;
   padding: 0.45rem 1.65rem;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--border-subtle);
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.12rem;
   margin: 0 auto 1.5rem;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--text-muted);
   gap: 0.3rem;
-  background: rgba(255, 255, 255, 0.04);
-  box-shadow: inset 0 0 15px rgba(77, 209, 255, 0.15);
+  background: var(--bg-muted);
+  box-shadow: inset 0 0 0 1px rgba(11, 99, 246, 0.08);
   width: fit-content;
 }
 
@@ -103,12 +104,12 @@
 }
 
 .services-hero h1 span {
-  color: #4dc2ff;
+  color: var(--accent-primary);
 }
 
 .services-hero__lede {
   margin: 0;
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--text-muted);
   font-size: clamp(1rem, 2.5vw, 1.25rem);
   line-height: 1.7;
 }
@@ -119,6 +120,7 @@
   display: flex;
   flex-direction: column;
   gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: center;
 }
 
 .services-core__intro {
@@ -144,7 +146,7 @@
 
 .services-core__intro p {
   margin: 0;
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--text-muted);
   line-height: 1.7;
 }
 
@@ -152,14 +154,15 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.25rem;
+  width: 100%;
 }
 
 .core-card {
   border-radius: 28px;
   padding: 2rem;
-  background: rgba(10, 17, 32, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-soft);
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -173,17 +176,17 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: radial-gradient(circle at 50% 0%, rgba(77, 209, 255, 0.25), transparent 60%);
+  background: radial-gradient(circle at 50% 0%, rgba(11, 99, 246, 0.12), transparent 60%);
   opacity: 0;
   transition: opacity 300ms ease;
   pointer-events: none;
 }
 
 .core-card:hover {
-  transform: scale(1.015);
-  background: rgba(18, 29, 53, 0.92);
-  border-color: rgba(77, 209, 255, 0.35);
-  box-shadow: 0 25px 55px rgba(3, 10, 23, 0.45);
+  transform: scale(1.01);
+  background: #fff;
+  border-color: rgba(11, 99, 246, 0.2);
+  box-shadow: 0 25px 55px rgba(15, 29, 51, 0.15);
 }
 
 .core-card:hover::after {
@@ -194,7 +197,7 @@
   width: 70px;
   height: 70px;
   border-radius: 16px;
-  background: rgba(66, 132, 255, 0.15);
+  background: rgba(11, 99, 246, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -215,7 +218,7 @@
 
 .core-card p {
   margin: 0;
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--text-muted);
   line-height: 1.6;
 }
 
@@ -229,7 +232,7 @@
 }
 
 .core-card li {
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--text-muted);
   padding-left: 1rem;
   position: relative;
 }
@@ -242,12 +245,12 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #4dc2ff;
+  background: var(--accent-primary);
 }
 
 .core-card__link {
   margin-top: auto;
-  color: #5ad0ff;
+  color: var(--accent-primary);
   text-decoration: none;
   font-weight: 600;
   display: inline-flex;
@@ -262,8 +265,8 @@
 /* SwissStack Standard row */
 .services-standard {
   padding: clamp(4rem, 8vw, 6rem) clamp(1.5rem, 6vw, 4.5rem);
-  background: radial-gradient(circle at 15% 20%, rgba(41, 92, 186, 0.25), transparent 50%),
-    radial-gradient(circle at 80% 40%, rgba(41, 130, 255, 0.18), transparent 60%);
+  background: radial-gradient(circle at 15% 20%, rgba(11, 99, 246, 0.08), transparent 55%),
+    radial-gradient(circle at 80% 40%, rgba(42, 176, 255, 0.08), transparent 60%), #f7f9fd;
   position: relative;
   overflow: hidden;
 }
@@ -281,7 +284,7 @@
 
 .services-standard__intro p {
   margin: 0;
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--text-muted);
 }
 
 .services-standard__grid {
@@ -305,9 +308,9 @@
 .standard-card {
   border-radius: 32px;
   padding: 2rem 1.75rem;
-  background: rgba(5, 15, 30, 0.75);
-  border: 1px solid rgba(77, 194, 255, 0.2);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-soft);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -318,7 +321,7 @@
   width: 56px;
   height: 56px;
   border-radius: 18px;
-  background: rgba(77, 194, 255, 0.16);
+  background: rgba(11, 99, 246, 0.12);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -337,7 +340,7 @@
 
 .standard-card p {
   margin: 0;
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--text-muted);
   line-height: 1.6;
 }
 
@@ -352,9 +355,9 @@
   padding: clamp(2rem, 5vw, 3.2rem);
   text-align: center;
   border-radius: 32px;
-  background: radial-gradient(circle at 20% 20%, rgba(62, 140, 255, 0.2), rgba(3, 9, 28, 0.95));
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 30px 70px rgba(4, 13, 32, 0.6);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-soft);
 }
 
 .services-cta__card h2 {
@@ -364,7 +367,7 @@
 
 .services-cta__card p {
   margin: 0 0 2rem;
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--text-muted);
 }
 
 .services-cta__actions {
@@ -379,7 +382,6 @@
   border-radius: 999px;
   font-weight: 600;
   text-decoration: none;
-  border: 1px solid transparent;
   transition: transform 200ms ease, box-shadow 200ms ease;
 }
 
@@ -388,7 +390,7 @@
 }
 
 .cta-btn--primary {
-  background: linear-gradient(120deg, #3a86ff, #59d0ff);
-  color: #031127;
-  box-shadow: 0 10px 35px rgba(58, 134, 255, 0.4);
+  background: var(--accent-gradient);
+  color: #fff;
+  box-shadow: 0 10px 35px rgba(11, 99, 246, 0.25);
 }
