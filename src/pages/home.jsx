@@ -3,6 +3,9 @@ import './home.css'
 import 'animate.css'
 import { useTranslation } from '../components/translation'
 import { useNavigate } from 'react-router-dom'
+import proxyIcon from '../assets/proxy.png'
+import itIcon from '../assets/It.png'
+import webIcon from '../assets/web.png'
 
 const HERO_STATS = [
   { key: 'uptime', value: '99.9%' },
@@ -13,17 +16,17 @@ const HERO_STATS = [
 const CORE_SERVICES = [
   {
     key: 'proxies',
-    icon: <img src="src/assets/proxy.png" alt="proxy" />,
+    icon: <img src={proxyIcon} alt="proxy" />,
     ctaHref: '#proxies',
   },
   {
     key: 'it',
-    icon: <img src="src/assets/It.png" alt="managed it" />,
+    icon: <img src={itIcon} alt="managed it" />,
     ctaHref: '#managed-it',
   },
   {
     key: 'web',
-    icon: <img src="src/assets/web.png" alt="web" />,
+    icon: <img src={webIcon} alt="web" />,
     ctaHref: '#web-design',
   },
 ]

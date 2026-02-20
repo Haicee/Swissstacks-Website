@@ -2,6 +2,9 @@ import './about-us.css'
 import 'animate.css'
 import { useEffect } from 'react'
 import { useTranslation } from '../components/translation'
+import securityIcon from '../assets/security.png'
+import innovationIcon from '../assets/innovation.png'
+import partnersIcon from '../assets/partners.png'
 
 const ABOUT_COPY = {
   en: {
@@ -20,19 +23,19 @@ const ABOUT_COPY = {
           key: 'integrity',
           title: 'Integrity & Security',
           description: 'Trust is our currency. We prioritize data privacy and system security above all else.',
-          icon: <img src="src/assets/security.png" alt="integrity and security icon" />,
+          icon: <img src={securityIcon} alt="integrity and security icon" />,
         },
         {
           key: 'innovation',
           title: 'Innovation',
           description: 'We constantly explore new technologies that keep clients ahead of the curve.',
-          icon: <img src="src/assets/innovation.png" alt="innovation icon" />,
+          icon: <img src={innovationIcon} alt="innovation icon" />,
         },
         {
           key: 'client',
           title: 'Client-Centric',
           description: 'Your success is our success. We build long-term partnerships, not just transactions.',
-          icon: <img src="src/assets/partners.png" alt="client partnership icon" />,
+          icon: <img src={partnersIcon} alt="client partnership icon" />,
         },
       ],
     },
@@ -82,19 +85,19 @@ const ABOUT_COPY = {
           key: 'integrity',
           title: 'Integrität & Sicherheit',
           description: 'Vertrauen ist unsere Währung. Daten­schutz und Systemsicherheit haben höchste Priorität.',
-          icon: <img src="src/assets/security.png" alt="Icon für Integrität und Sicherheit" />,
+          icon: <img src={securityIcon} alt="Icon für Integrität und Sicherheit" />,
         },
         {
           key: 'innovation',
           title: 'Innovation',
           description: 'Wir erforschen kontinuierlich neue Technologien, die unsere Kunden an die Spitze bringen.',
-          icon: <img src="src/assets/innovation.png" alt="Icon für Innovation" />,
+          icon: <img src={innovationIcon} alt="Icon für Innovation" />,
         },
         {
           key: 'client',
           title: 'Kundenfokus',
           description: 'Ihr Erfolg ist unser Erfolg. Wir bauen langfristige Partnerschaften statt kurzfristiger Projekte.',
-          icon: <img src="src/assets/partners.png" alt="Icon für Kundenfokus" />,
+          icon: <img src={partnersIcon} alt="Icon für Kundenfokus" />,
         },
       ],
     },
