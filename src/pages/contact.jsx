@@ -184,7 +184,7 @@ function Contact() {
               name="accessKey"
               
               /* Access Key for SilentForms */
-              value="212e7ed2941269d6c448935051fe1d0e12b972ef0dfa6cf55e199f85397ca48b"
+              value="c9a000727817c9f2cfe8a89c8b3b6cc5a4801f136ddb774ff4ce96e67b12264e"
             />
             <div className="form-row">
               <label>
@@ -260,7 +260,7 @@ function Contact() {
             </span>
             <h3>{t.cards.emailTitle}</h3>
             <p>{t.cards.emailSubtitle}</p>
-            <a href="mailto:hello@swissstack.com">hello@swissstack.com</a>
+            <a href="mailto:info@swissstacks.com">info@swissstacks.com</a>
           </article>
 
           <article className="contact-card">
